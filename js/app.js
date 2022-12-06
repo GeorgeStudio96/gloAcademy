@@ -1,54 +1,65 @@
-// homework lesson 01
+'use strict'
 
-let title;
-let screens;
-let screenPrice;
-let rollback;
-let fullPrice;
-let adaptive;
+let title = prompt('Как называется ваш проект?');
+let screens = prompt('Какие типы экранов нужно разработать?')
+let screenPrice = +prompt('Сколько будет стоить данная работа?')
+let rollback = 76;
+let adaptive = prompt('Нужен ли адаптив на сайте?')
+let service = prompt('Какой дополнительный тип услуги нужен?')
+let price = +prompt('Сколько это будет стоить?')
+let service2 = prompt('Какой дополнительный тип услуги нужен?')
+let price2 = +prompt('Сколько это будет стоить?')
 
-alert('homework lesson01')
-console.log('homework lesson01')
+
+let priceResult = price
+console.log(priceResult)
+let priceResult2 = price2
+console.log(priceResult2)
+
+let fullPrice = (screenPrice + priceResult + priceResult2)
+console.log('Full Price: ' + fullPrice)
+
+
+//откат посреднику (fullPrice * (rollback/100))
+let rollbackRes = (fullPrice * (rollback / 100))
+console.log('Откат посреднику: ' + rollbackRes)
+
+let servicePercentPrice = (fullPrice - rollbackRes)
+console.log("Итоговая цена: " + Math.ceil(servicePercentPrice))
 
 
 
-// homework lesson 2
+if (fullPrice > 3000) {
+    console.log('Даем скидку в 10%')
+} else if (fullPrice > 15000 && fullPrice < 30000) {
+    console.log('Даем скидку в 5%')
+} else if (fullPrice < 15000 && fullPrice > 0) {
+    console.log('Скидка не предусмотрена')
+} else if (fullPrice < 0) {
+    console.log('Что-то пошло не так')
+} else if (fullPrice === 0 || fullPrice === 15000 || fullPrice === 30000) {
+    console.log('Что-то происходит')
+}
 
-// Следующим переменным присвоить значения
 
-title = 'Lesson 01';
-screens = 'Простые, Сложные, Интерактивные';
-screenPrice = 10;
-rollback = 76;
-fullPrice = 1000000;
-adaptive = true
 
-// Вывести в консоль тип данных значений переменных title, fullPrice, adaptive;
-console.log(typeof title)
-console.log(typeof fullPrice)
-console.log(typeof adaptive)
 
-// Вывести в консоль длину строки из переменной screens
+/* switch (fullPrice) {
+    case fullPrice > 30000:
+        console.log('Даем скидку в 10%')
+        break;
+    case fullPrice > 15000 && fullPrice < 30000:
+        console.log('Даем скидку в 5%')
+        break;
+    case fullPrice < 15000:
+        console.log('Скидка не предусмотрена')
+        break;
 
-console.log(screens.length)
+    case 0:
+    case 15000:
+    case 30000:
+        console.log('Значения 0, 15000, 30000')
+        break;
 
-// Вывести в консоль “Стоимость верстки экранов (screenPrice) рублей/ долларов/гривен/юани” 
-// и “Стоимость разработки сайта (fullPrice) рублей/ долларов/гривен/юани”
 
-console.log((screenPrice + ' Рублей'))
-console.log((screenPrice + ' Долларов'))
-console.log((fullPrice + ' Рублей'))
-console.log((fullPrice + ' Долларов'))
-
-// Привести строку screens к нижнему регистру и разбить строку на массив, вывести массив в консоль
-
-let screensToLowerCase = screens.toLowerCase();
-console.log(screensToLowerCase)
-
-let array = screensToLowerCase.split(', ')
-console.log(array)
-
-// Вывести в консоль Процент отката посреднику за работу (fullPrice * (rollback/100))
-
-console.log((fullPrice * (rollback / 100)))
-
+} */
