@@ -29,7 +29,7 @@ let rollbackRes = (fullPrice * (rollback / 100))
 console.log(rollbackRes + ' ОТКАТ ПОСРЕДНИКУ')
 
 
-if (fullPrice > 3000) {
+if (fullPrice > 30000) {
     console.log('Даем скидку в 10%')
 } else if (fullPrice > 15000 && fullPrice < 30000) {
     console.log('Даем скидку в 5%')
