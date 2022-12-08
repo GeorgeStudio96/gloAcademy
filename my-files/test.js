@@ -9,3 +9,11 @@ console.log(text.includes('world'))
 // console.log(text.replace('Hello', 'Bye'))
 
 console.log(text.split(', '))
+
+
+let potato = 10
+
+for (let i = 0; i < potato; i++) {
+    if (i === 5) break
+    console.log(i)
+}
