@@ -29,7 +29,7 @@ console.log("Итоговая цена: " + Math.ceil(servicePercentPrice))
 
 
 
-if (fullPrice > 3000) {
+if (fullPrice > 30000) {
     console.log('Даем скидку в 10%')
 } else if (fullPrice > 15000 && fullPrice < 30000) {
     console.log('Даем скидку в 5%')
@@ -42,24 +42,3 @@ if (fullPrice > 3000) {
 }
 
 
-
-
-/* switch (fullPrice) {
-    case fullPrice > 30000:
-        console.log('Даем скидку в 10%')
-        break;
-    case fullPrice > 15000 && fullPrice < 30000:
-        console.log('Даем скидку в 5%')
-        break;
-    case fullPrice < 15000:
-        console.log('Скидка не предусмотрена')
-        break;
-
-    case 0:
-    case 15000:
-    case 30000:
-        console.log('Значения 0, 15000, 30000')
-        break;
-
-
-} */
