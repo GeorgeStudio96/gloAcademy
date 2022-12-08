@@ -43,7 +43,13 @@ const getAllServicePrices = function () {
             service2 = prompt('Какой дополнительный тип услуги нужен?', 'Услуга 2')
         }
 
-        sum += +prompt('Сколько это будет стоить?')
+        let textFromPromt = '';
+
+        while (!isNumber(textFromPromt) || textFromPromt.trim() === '' || textFromPromt === null) {
+            textFromPromt = prompt('Сколько это будет стоить?')
+        }
+
+        sum += Number(textFromPromt)
 
     }
 
