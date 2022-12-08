@@ -21,16 +21,14 @@ console.log(screens)
 
 function getRollbackMessage(price) {
 
-    if (price > 30000) {
+    if (price >= 30000) {
         return 'Даем скидку в 10%'
-    } else if (price > 15000 && fullPrice < 30000) {
+    } else if (price >= 15000 && price < 30000) {
         return 'Даем скидку в 5%'
-    } else if (price < 15000 && fullPrice > 0) {
+    } else if (price < 15000 && price >= 0) {
         return 'Скидка не предусмотрена'
-    } else if (price < 0) {
+    } else {
         return 'Что-то пошло не так'
-    } else if (price === 0 || fullPrice === 15000 || fullPrice === 30000) {
-        return 'Что-то происходит'
     }
 }
 
