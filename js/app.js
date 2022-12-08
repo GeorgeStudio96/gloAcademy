@@ -1,32 +1,22 @@
 'use strict'
 
-let title = prompt('Как называется ваш проект?');
-console.log(typeof title)
 
+
+let title = prompt('Как называется ваш проект?');
 let screens = prompt('Какие типы экранов нужно разработать?')
-console.log(screens)
 let screenPrice = +prompt('Сколько будет стоить данная работа?')
 let rollback = 76;
 let adaptive = prompt('Нужен ли адаптив на сайте?')
-console.log(typeof adaptive)
-
 let service = prompt('Какой дополнительный тип услуги нужен?')
-let price = +prompt('Сколько это будет стоить?')
+let servicePrice1 = +prompt('Сколько это будет стоить?')
 let service2 = prompt('Какой дополнительный тип услуги нужен?')
-let price2 = +prompt('Сколько это будет стоить?')
+let servicePrice2 = +prompt('Сколько это будет стоить?')
+let fullPrice = screenPrice + servicePrice1 + servicePrice2
+let servicePercentPrice = Math.ceil(fullPrice - (fullPrice * (rollback / 100)))
 
-
-
-let priceResult = price
-let priceResult2 = price2
-
-let fullPrice = (screenPrice + priceResult + priceResult2) // 9
-console.log(fullPrice + ' FULLPRICE')
-
-//откат посреднику (fullPrice * (rollback/100))
-let rollbackRes = (fullPrice * (rollback / 100))
-
-console.log(rollbackRes + ' ОТКАТ ПОСРЕДНИКУ')
+console.log(typeof title)
+console.log(typeof adaptive)
+console.log(screens)
 
 
 function getRollbackMessage(price) {
@@ -41,60 +31,40 @@ function getRollbackMessage(price) {
         return 'Что-то пошло не так'
     } else if (price === 0 || fullPrice === 15000 || fullPrice === 30000) {
         return 'Что-то происходит'
-
     }
 }
 
-
 console.log(getRollbackMessage(fullPrice));
-
-
 
 
 
 let allServicePrices;
 
 const getAllServicePrices = function () {
-    allServicePrices = priceResult + priceResult2
+    return servicePrice1 + servicePrice2
 
 }
-getAllServicePrices();
-console.log(allServicePrices)
+allServicePrices = getAllServicePrices();
+
 
 
 function getFullPrice() {
-    fullPrice = screenPrice + allServicePrices
+    return screenPrice + allServicePrices
 }
-getFullPrice();
-console.log('FULL PRICE UPDATED: ' + fullPrice)
-
-
+fullPrice = getFullPrice();
 
 
 let newTitle = '';
 
-function getTitle() {
-    newTitle = title[0].toUpperCase() + title.slice(1).toLocaleLowerCase()
+const getTitle = function () {
+    return title[0].toUpperCase() + title.slice(1).toLocaleLowerCase()
+}
+newTitle = getTitle();
+
+
+const getServicePercentPrices = function () {
+    return fullPrice - servicePercentPrice
 }
 
-getTitle();
-
-
-
-
-
-let servicePercentPrice;
-
-const getServicePercentPrices = () => {
-    servicePercentPrice = fullPrice - rollbackRes
-}
-
-getServicePercentPrices();
+servicePercentPrice = getAllServicePrices();
 console.log(servicePercentPrice)
-
-
-getAllServicePrices();
-
-console.log("Итоговая цена: " + servicePercentPrice)
-
-
