@@ -29,17 +29,25 @@ let rollbackRes = (fullPrice * (rollback / 100))
 console.log(rollbackRes + ' ОТКАТ ПОСРЕДНИКУ')
 
 
-if (fullPrice > 30000) {
-    console.log('Даем скидку в 10%')
-} else if (fullPrice > 15000 && fullPrice < 30000) {
-    console.log('Даем скидку в 5%')
-} else if (fullPrice < 15000 && fullPrice > 0) {
-    console.log('Скидка не предусмотрена')
-} else if (fullPrice < 0) {
-    console.log('Что-то пошло не так')
-} else if (fullPrice === 0 || fullPrice === 15000 || fullPrice === 30000) {
-    console.log('Что-то происходит')
+function getRollbackMessage(price) {
+
+    if (price > 30000) {
+        return 'Даем скидку в 10%'
+    } else if (price > 15000 && fullPrice < 30000) {
+        return 'Даем скидку в 5%'
+    } else if (price < 15000 && fullPrice > 0) {
+        return 'Скидка не предусмотрена'
+    } else if (price < 0) {
+        return 'Что-то пошло не так'
+    } else if (price === 0 || fullPrice === 15000 || fullPrice === 30000) {
+        return 'Что-то происходит'
+
+    }
 }
+
+
+console.log(getRollbackMessage(fullPrice));
+
 
 
 
@@ -88,4 +96,5 @@ console.log(servicePercentPrice)
 getAllServicePrices();
 
 console.log("Итоговая цена: " + servicePercentPrice)
+
 
