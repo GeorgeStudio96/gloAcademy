@@ -110,7 +110,6 @@ showTypeOf(adaptive);
 
 
 
-
 console.log(screens.length)
 console.log(Math.ceil(servicePercentPrice))
 console.log(getRollbackMessage(fullPrice));
