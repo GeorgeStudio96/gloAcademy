@@ -13,19 +13,29 @@ let service2;
 
 
 
-const isNumber = function (num) {
-    return !isNaN(parseFloat(num)) && isFinite(num)
+
+
+
+// Проверка на число
+
+const checkIsNumber = function (x) {
+    return !isNaN(parseFloat(x)) && isFinite(x)
 }
+
+
+
+
 
 const asking = function () {
     title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
     screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные')
 
-    screenPrice = prompt('Сколько будет стоить данная работа?')
+    screenPrice = prompt('Сколько будет стоить данная работа?', 12000)
 
-    while (!isNumber(screenPrice) || screenPrice.trim() === '' || screenPrice === null) {
-        screenPrice = prompt('Сколько будет стоить данная работа?')
+    while (!checkIsNumber(screenPrice) || screenPrice.trim() === '' || screenPrice === null) {
+        screenPrice = prompt('Сколько будет стоить данная работа?', 12000)
     }
+    screenPrice = Number(screenPrice)
 
     adaptive = prompt('Нужен ли адаптив на сайте?', 'Да')
 }
@@ -45,7 +55,7 @@ const getAllServicePrices = function () {
 
         let textFromPromt = '';
 
-        while (!isNumber(textFromPromt) || textFromPromt.trim() === '' || textFromPromt === null) {
+        while (!checkIsNumber(textFromPromt) || textFromPromt.trim() === '' || textFromPromt === null) {
             textFromPromt = prompt('Сколько это будет стоить?')
         }
 
@@ -72,6 +82,7 @@ const getFullPrice = function () {
 const getServicePercentPrice = function () {
     return fullPrice - (fullPrice * (rollback / 100))
 }
+
 
 
 
