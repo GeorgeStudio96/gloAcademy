@@ -10,22 +10,27 @@ let fullPrice;
 let servicePercentPrice;
 let service;
 let service2;
+let textFromPromt;
+let sum = 0
 
 
-
+/*
 const isNumber = function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num)
 }
+*/
+
+
 
 const asking = function () {
     title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
     screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные')
 
-    screenPrice = prompt('Сколько будет стоить данная работа?')
+    screenPrice = +prompt('Сколько будет стоить данная работа?', 12000)
 
-    while (!isNumber(screenPrice) || screenPrice.trim() === '' || screenPrice === null) {
-        screenPrice = prompt('Сколько будет стоить данная работа?')
-    }
+    /*while (!isNumber(screenPrice) || screenPrice.trim() === '' || screenPrice === null) {
+        screenPrice = +prompt('Сколько будет стоить данная работа?')
+    } */
 
     adaptive = prompt('Нужен ли адаптив на сайте?', 'Да')
 }
@@ -33,7 +38,6 @@ const asking = function () {
 
 
 const getAllServicePrices = function () {
-    let sum = 0
 
     for (let i = 0; i < 2; i++) {
 
@@ -43,14 +47,14 @@ const getAllServicePrices = function () {
             service2 = prompt('Какой дополнительный тип услуги нужен?', 'Услуга 2')
         }
 
-        let textFromPromt = '';
 
-        while (!isNumber(textFromPromt) || textFromPromt.trim() === '' || textFromPromt === null) {
-            textFromPromt = prompt('Сколько это будет стоить?')
-        }
+        textFromPromt = +prompt('Сколько это будет стоить?')
+        /*while (!isNumber(textFromPromt) || textFromPromt.trim() === '' || textFromPromt === null) {
+        } */
 
-        sum += Number(textFromPromt)
-
+        // sum += Number(textFromPromt)
+        console.log(textFromPromt, ' Введеное значение в поле цены услуги1 и услуги2')
+        sum += textFromPromt
     }
 
     return sum
@@ -67,6 +71,7 @@ const showTypeOf = function (variable) {
 const getFullPrice = function () {
     return screenPrice + allServicePrices
 }
+
 
 
 const getServicePercentPrice = function () {
@@ -109,10 +114,12 @@ showTypeOf(title);
 showTypeOf(adaptive);
 
 
+console.log(screenPrice, ' Это стоимость верстки экранов screenPrice')
+console.log(sum, ' Это сумма стоимости услуги1 и услуги2')
+console.log(fullPrice, 'Это фуллпрайс, до применения комиссии')
 
-console.log(screens.length)
-console.log(Math.ceil(servicePercentPrice))
-console.log(getRollbackMessage(fullPrice));
-console.log('allServicePrices', allServicePrices)
 
+console.log(screens.length, ' Длина строки')
+console.log(getRollbackMessage(fullPrice), ' Проверка на наличие скидки?');
+console.log(Math.ceil(servicePercentPrice), ' Полная стоимость за вычетом комиссии')
 
