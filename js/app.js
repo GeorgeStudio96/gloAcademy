@@ -11,25 +11,36 @@ const appData = {
     fullPrice: 0,
     servicePercentPrice: 0,
     services: {},
+    isOnlyDigital: function (val) {
+        return !isNaN(val)
+    },
     asking: function () {
         console.log(appData.services === 'Услуга 1', ' Вернет true или false, если есть строка Услуга 1');
 
-        appData.title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
-
+        do {
+            appData.title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
+        } while (this.isOnlyDigital(this.title))
 
 
         for (let i = 0; i < 2; i++) {
-            let name = prompt('Какие типы экранов нужно разработать?')
+
+            // проверка на строку name
+            let name;
+
+            do {
+                name = prompt('Какие типы экранов нужно разработать?')
+            } while (this.isOnlyDigital(name))
+
+
             let price = 0;
 
-            /* while (!appData.isNumber(price) || price.trim() === '' || price === null) {
-                 price = prompt('Сколько будет стоить данная работа?')
-             }*/
+            /*while (!appData.isNumber(price) || price.trim() === '' || price === null) {
+                price = prompt('Сколько будет стоить данная работа?')
+            } */
 
             do {
                 price = prompt('Сколько будет стоить данная работа?')
             } while (!appData.isNumber(price))
-
 
             this.screens.push({ id: i, name: name, price: price })
         }
@@ -39,10 +50,33 @@ const appData = {
 
 
 
-
-
         for (let i = 0; i < 2; i++) {
-            let nameService = prompt('Какой дополнительный тип услуги нужен?', 'Услуга 1')
+            let nameService;
+
+
+
+
+
+            do {
+                nameService = prompt('Какой дополнительный тип услуги нужен?')
+
+
+                // if (nameService in this.services) {
+                //     console.log('Назван уже есть');
+                //     nameService += ' copy'
+                // }
+
+
+
+
+
+            } while (this.isOnlyDigital(nameService) || nameService in this.services)
+
+
+
+
+
+
 
 
 
@@ -54,27 +88,37 @@ const appData = {
 
             appData.services[nameService] = Number(textFromPromt)
 
-            if ('Услуга 1' in appData.services) {
-                console.log('Уже есть услуга 1');
-                appData.services[nameService + '1'] = Number(textFromPromt)
-
-            }
-
-            console.log('Услуга 1' in appData.services, ' Услуга 1', ' Вернет true или false, если есть строка Услуга 1');
-
         }
 
 
         appData.adaptive = prompt('Нужен ли адаптив на сайте?', 'Да')
     },
     addPrices: function () {
+
+        /* screens = [
+            {id: 1, name: Название экрана 1, price: 100}
+            {id: 1, name: Название экрана 1, price: 100}
+        ]
+        
+        */
+
+
         for (let screen of this.screens) {
             appData.screenPrice += +screen.price
         }
 
+
+        // appData.screenPrice = this.screens.reduce((sum, screen) =>
+        //     sum + screen.price // 2
+        //     , 0)
+
+
+
         for (let item in appData.services) {
             appData.allServicePrices = appData.allServicePrices + appData.services[item]
         }
+
+
     },
 
     logger: function () {
@@ -147,6 +191,9 @@ const appData = {
 
 
 appData.start()
+
+
+
 
 
 
