@@ -95,17 +95,17 @@ const appData = {
     },
     addPrices: function () {
 
-        /* screens = [
-            {id: 1, name: Название экрана 1, price: 100}
-            {id: 1, name: Название экрана 1, price: 100}
-        ]
-        
-        */
+        // перепишу на reduce
+        const sumScreenPrice = this.screens.reduce(function (accumulator, screen) {
+            return accumulator + +screen.price // 11000
+        }, 0)
 
+        this.screenPrice = sumScreenPrice
+        console.log(sumScreenPrice, ' Получаю сумму экранов');
 
-        for (let screen of this.screens) {
-            appData.screenPrice += +screen.price
-        }
+        // for (let screen of this.screens) {
+        //     appData.screenPrice += +screen.price
+        // }
 
 
         // appData.screenPrice = this.screens.reduce((sum, screen) =>
