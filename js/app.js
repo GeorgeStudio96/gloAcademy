@@ -34,10 +34,6 @@ const appData = {
 
             let price = 0;
 
-            /*while (!appData.isNumber(price) || price.trim() === '' || price === null) {
-                price = prompt('Сколько будет стоить данная работа?')
-            } */
-
             do {
                 price = prompt('Сколько будет стоить данная работа?')
             } while (!appData.isNumber(price))
@@ -67,15 +63,7 @@ const appData = {
                 // }
 
 
-
-
-
             } while (this.isOnlyDigital(nameService) || nameService in this.services)
-
-
-
-
-
 
 
 
@@ -95,24 +83,12 @@ const appData = {
     },
     addPrices: function () {
 
-        // перепишу на reduce
         const sumScreenPrice = this.screens.reduce(function (accumulator, screen) {
-            return accumulator + +screen.price // 11000
+            return accumulator + +screen.price
         }, 0)
 
         this.screenPrice = sumScreenPrice
         console.log(sumScreenPrice, ' Получаю сумму экранов');
-
-        // for (let screen of this.screens) {
-        //     appData.screenPrice += +screen.price
-        // }
-
-
-        // appData.screenPrice = this.screens.reduce((sum, screen) =>
-        //     sum + screen.price // 2
-        //     , 0)
-
-
 
         for (let item in appData.services) {
             appData.allServicePrices = appData.allServicePrices + appData.services[item]
