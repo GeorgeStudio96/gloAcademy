@@ -1,5 +1,56 @@
 'use strict'
 
+// homework lesson09
+
+const title = document.getElementsByTagName('h1')
+const titleSelector = document.querySelector('h1')
+
+const handlerBtn = document.getElementsByClassName('handler_btn')
+const screenBtn = document.querySelector('.screen-btn')
+
+const otherItemsPercent = document.querySelectorAll('.other-items.percent')
+const otherItemsNumber = document.querySelectorAll('.other-items.number')
+
+
+const range = document.querySelector('div > input[type=range]')
+const span = document.querySelector('div > span.range-value')
+
+const totalInput = document.getElementsByClassName('total-input')
+const totalInputQuery = document.querySelectorAll('.total-input')
+
+let screen = document.querySelectorAll('.screen')
+
+
+
+console.dir(title);
+console.log(titleSelector);
+console.log(handlerBtn);
+console.log(screenBtn);
+console.log(otherItemsPercent);
+console.log(otherItemsNumber);
+console.log(range);
+console.log(span);
+console.log(totalInput);
+console.log(totalInputQuery);
+console.log(screen);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 const appData = {
     title: '',
@@ -171,7 +222,7 @@ appData.start()
 
 
 
-
+*/
 
 
 
