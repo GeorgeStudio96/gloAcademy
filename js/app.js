@@ -15,8 +15,12 @@ const otherItemsNumber = document.querySelectorAll('.other-items.number')
 const range = document.querySelector('div > input[type=range]')
 const span = document.querySelector('div > span.range-value')
 
-const totalInput = document.getElementsByClassName('total-input')
-const totalInputQuery = document.querySelectorAll('.total-input')
+const totalInputCostScreen = document.getElementsByClassName('total-input')[0]
+const totalInputValue = document.getElementsByClassName('total-input')[1]
+const totalInputConstService = document.getElementsByClassName('total-input')[2]
+const totalInput = document.getElementsByClassName('total-input')[3]
+const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
+
 
 let screen = document.querySelectorAll('.screen')
 
@@ -30,8 +34,14 @@ console.log(otherItemsPercent);
 console.log(otherItemsNumber);
 console.log(range);
 console.log(span);
+
+console.log(totalInputCostScreen);
+console.log(totalInputValue);
+console.log(totalInputConstService);
 console.log(totalInput);
-console.log(totalInputQuery);
+console.log(totalInputWithRollback);
+
+
 console.log(screen);
 
 
