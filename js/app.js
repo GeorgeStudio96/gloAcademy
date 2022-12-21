@@ -2,55 +2,29 @@
 
 // homework lesson09
 
-const title = document.getElementsByTagName('h1')
-const titleSelector = document.querySelector('h1')
-
-const handlerBtn = document.getElementsByClassName('handler_btn')
-const screenBtn = document.querySelector('.screen-btn')
-
+const title = document.getElementsByTagName('h1')[0]
+const btnPlus = document.querySelector('.screen-btn')
 const otherItemsPercent = document.querySelectorAll('.other-items.percent')
 const otherItemsNumber = document.querySelectorAll('.other-items.number')
 
 
-const range = document.querySelector('div > input[type=range]')
-const span = document.querySelector('div > span.range-value')
+const inputRange = document.querySelector('div > input[type=range]')
+const rangeValue = document.querySelector('div > span.range-value')
 
-const totalInput = document.getElementsByClassName('total-input')
-const totalInputQuery = document.querySelectorAll('.total-input')
-
-let screen = document.querySelectorAll('.screen')
+const startBtn = document.getElementsByClassName('handler_btn')[0]
+const resetBtn = document.getElementsByClassName('handler_btn')[1]
 
 
-
-console.dir(title);
-console.log(titleSelector);
-console.log(handlerBtn);
-console.log(screenBtn);
-console.log(otherItemsPercent);
-console.log(otherItemsNumber);
-console.log(range);
-console.log(span);
-console.log(totalInput);
-console.log(totalInputQuery);
-console.log(screen);
+const totalInputCostScreen = document.getElementsByClassName('total-input')[0]
+const totalInputValue = document.getElementsByClassName('total-input')[1]
+const totalInputConstService = document.getElementsByClassName('total-input')[2]
+const totalInput = document.getElementsByClassName('total-input')[3]
+const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
 
 
+let screens = document.querySelectorAll('.screen')
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 
 const appData = {
     title: '',
@@ -62,6 +36,42 @@ const appData = {
     fullPrice: 0,
     servicePercentPrice: 0,
     services: {},
+    init: function () {
+        this.addTitle()
+        startBtn.addEventListener('click', appData.start)
+    },
+    addTitle: function () {
+        document.title = title.textContent
+    },
+    start: function () {
+        appData.addScreens()
+        // appData.asking();
+        // this.addPrices();
+        // appData.getFullPrice();
+        // appData.getServicePercentPrice();
+        // appData.getTitle();
+
+        // appData.logger();
+        // console.log('Отобразим для понимания объект из услуг ', appData.services);
+    },
+    addScreens: function () {
+
+        screens.forEach(function (item, index) {
+            const select = item.querySelector('select')
+            const input = item.querySelector('input')
+            const selectName = select.options[select.selectedIndex].textContent
+
+            appData.screens.push(
+                {
+                    id: index,
+                    name: selectName,
+                    price: +select.value * +input.value
+                }
+            )
+            console.log(appData.screens);
+
+        })
+    },
     isOnlyDigital: function (val) {
         return !isNaN(val)
     },
@@ -89,7 +99,7 @@ const appData = {
                 price = prompt('Сколько будет стоить данная работа?')
             } while (!appData.isNumber(price))
 
-            this.screens.push({ id: i, name: name, price: price })
+            this.screens.push({ id: i, name: selectName, price: price })
         }
 
 
@@ -171,19 +181,6 @@ const appData = {
         }
 
     },
-
-    start: function () {
-        appData.asking();
-        this.addPrices();
-        appData.getFullPrice();
-        appData.getServicePercentPrice();
-        appData.getTitle();
-
-        // после всех заданных вопросов и математических операций вызываем консоль логи из logger
-        appData.logger();
-        console.log('Отобразим для понимания объект из услуг ', appData.services);
-    },
-
     isNumber: function (num) {
         return !isNaN(parseFloat(num)) && isFinite(num)
     },
@@ -215,14 +212,8 @@ const appData = {
 }
 
 
+appData.init()
 
-
-appData.start()
-
-
-
-
-*/
 
 
 
