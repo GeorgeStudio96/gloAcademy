@@ -61,6 +61,7 @@ const appData = {
         // appData.logger();
         console.log(appData);
         appData.showResult()
+        appData.screens.splice(0)
 
     },
     addRollback: function () {
