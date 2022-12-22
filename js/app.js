@@ -21,7 +21,7 @@ const totalInput = document.getElementsByClassName('total-input')[3]
 const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
 
 
-let screens = document.querySelectorAll('.screen')
+let screens = document.querySelectorAll('.screen') // nodelist
 
 
 
@@ -48,9 +48,12 @@ const appData = {
         document.title = title.textContent
     },
     addScreenBlock: function () {
-        console.log('clone block');
+        screens = document.querySelectorAll('.screen') // нужно переопределить коллекцию
+
         const cloneScreen = screens[0].cloneNode(true)
+        cloneScreen.querySelector('input[type=text]').value = ''
         screens[screens.length - 1].after(cloneScreen)
+
     },
     start: function () {
         appData.addScreens()
@@ -60,7 +63,6 @@ const appData = {
         // appData.logger();
         console.log(appData);
         appData.showResult()
-        appData.screens.splice(0)
 
     },
     addRollback: function () {
@@ -97,7 +99,8 @@ const appData = {
 
             } else {
                 appData.screens.splice(0);
-                alert('Не заполнены обязательные поля')
+                document.querySelectorAll('input[type=text]').value = ''
+                console.log('Не заполнены обязательные поля')
             }
 
         })
