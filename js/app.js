@@ -1,6 +1,5 @@
 'use strict'
 
-// homework lesson09
 
 const title = document.getElementsByTagName('h1')[0]
 const btnPlus = document.querySelector('.screen-btn')
