@@ -1,6 +1,31 @@
 'use strict'
 
 
+/*
+const inputRange = document.querySelector('div > input[type=range]')
+const rangeValue = document.querySelector('div > span.range-value')
+const startBtn = document.getElementsByClassName('handler_btn')[0]
+const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
+
+
+let rollback;
+
+const allPrice = 10 // all prices
+
+totalInputWithRollback.value = allPrice
+
+
+const getAllPrice = function (event) {
+    rangeValue.textContent = +event.target.value // запишу значение event
+    totalInputWithRollback.value = allPrice * +event.target.value
+
+}
+inputRange.addEventListener('input', getAllPrice)
+inputRange.addEventListener('change', getAllPrice)
+
+*/
+
+
 const title = document.getElementsByTagName('h1')[0]
 const btnPlus = document.querySelector('.screen-btn')
 const otherItemsPercent = document.querySelectorAll('.other-items.percent')
@@ -43,6 +68,7 @@ const appData = {
         startBtn.addEventListener('click', appData.start)
         btnPlus.addEventListener('click', appData.addScreenBlock)
         appData.addRollback()
+        appData.addRollbackAfter()
     },
     addTitle: function () {
         document.title = title.textContent
@@ -63,10 +89,11 @@ const appData = {
         // appData.logger();
         console.log(appData);
         appData.showResult()
+        appData.screens.splice(0)
 
     },
     addRollback: function () {
-        console.log(appData.rollback); // по умолчанию 10
+        console.log(appData.rollback, ' // по умолчанию 10');
 
         const rangeValRes = function (e) {
             rangeValue.innerHTML = e.target.value + '%'
@@ -77,6 +104,16 @@ const appData = {
         inputRange.addEventListener('input', rangeValRes)
         inputRange.addEventListener('change', rangeValRes)
 
+    },
+
+    addRollbackAfter: function () {
+        const rangeValResAfter = function (e) {
+            appData.rollback = +e.target.value
+            appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100))
+            totalInputWithRollback.value = appData.servicePercentPrice
+        }
+        inputRange.addEventListener('input', rangeValResAfter)
+        inputRange.addEventListener('change', rangeValResAfter)
     },
     addScreens: function () {
         screens = document.querySelectorAll('.screen') // нужно переопределить коллекцию
@@ -200,4 +237,5 @@ const appData = {
 
 
 appData.init()
+
 
