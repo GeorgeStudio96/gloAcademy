@@ -1,31 +1,5 @@
 'use strict'
 
-
-/*
-const inputRange = document.querySelector('div > input[type=range]')
-const rangeValue = document.querySelector('div > span.range-value')
-const startBtn = document.getElementsByClassName('handler_btn')[0]
-const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
-
-
-let rollback;
-
-const allPrice = 10 // all prices
-
-totalInputWithRollback.value = allPrice
-
-
-const getAllPrice = function (event) {
-    rangeValue.textContent = +event.target.value // запишу значение event
-    totalInputWithRollback.value = allPrice * +event.target.value
-
-}
-inputRange.addEventListener('input', getAllPrice)
-inputRange.addEventListener('change', getAllPrice)
-
-*/
-
-
 const title = document.getElementsByTagName('h1')[0]
 const btnPlus = document.querySelector('.screen-btn')
 const otherItemsPercent = document.querySelectorAll('.other-items.percent')
@@ -50,6 +24,7 @@ let screens = document.querySelectorAll('.screen') // nodelist
 
 
 
+
 const appData = {
     title: '',
     screens: [],
@@ -64,21 +39,24 @@ const appData = {
     servicesPercent: {},
     servicesNumber: {},
     init: function () {
-        appData.addTitle()
-        startBtn.addEventListener('click', appData.start)
-        btnPlus.addEventListener('click', appData.addScreenBlock)
-        appData.addRollback()
-        appData.addRollbackAfter()
+        this.addTitle()
+        startBtn.addEventListener('click', this.start)
+        btnPlus.addEventListener('click', this.addScreenBlock)
+        this.addRollback()
+        this.addRollbackAfter()
+        resetBtn.addEventListener('click', this.reset)
     },
     addTitle: function () {
         document.title = title.textContent
     },
     addScreenBlock: function () {
         screens = document.querySelectorAll('.screen') // нужно переопределить коллекцию
-
+        console.log(screens, ' нодлист скринов и их кол-во')
         const cloneScreen = screens[0].cloneNode(true)
         cloneScreen.querySelector('input[type=text]').value = ''
         screens[screens.length - 1].after(cloneScreen)
+        console.log(screens, ' нодлист скринов и их кол-во после клонирования')
+
 
     },
     start: function () {
@@ -87,18 +65,81 @@ const appData = {
         appData.addPrices();
 
         // appData.logger();
-        console.log(appData);
+        console.log(this);
         appData.showResult()
         appData.screens.splice(0)
+        appData.disableItem()
 
     },
+    disableItem: function () {
+        let allSelect = document.querySelectorAll('.main-controls__select > select')
+        allSelect.forEach(item => item.setAttribute('disabled', 'disabled'))
+
+        let firstInput = document.querySelectorAll('.screen > .main-controls__input > input[type=text]')
+        firstInput.forEach(item => item.setAttribute('disabled', 'disabled'))
+
+
+        resetBtn.style.display = 'block'
+        startBtn.style.display = 'none'
+
+    },
+    reset: function () {
+
+        let firstInput = document.querySelectorAll('.screen > .main-controls__input > input[type=text]')
+        firstInput.forEach(item => {
+            item.value = '';
+            item.removeAttribute('disabled')
+        })
+
+
+        let allSelect = document.querySelectorAll('.main-controls__select > select')
+        allSelect.forEach(item => {
+            item.value = ''
+            item.removeAttribute('disabled')
+        })
+
+
+        let checkobxes = document.querySelectorAll('input[type=checkbox]')
+        checkobxes.forEach(item => {
+            item.checked = false
+        })
+
+
+        appData.screens.splice(0)
+        inputRange.value = 0
+        totalInputCostScreen.value = 0
+        totalInputValue.value = 0
+        totalCountOther.value = 0
+        totalInput.value = 0
+        totalInputWithRollback.value = 0
+        rangeValue.innerHTML = 0 + '%'
+
+        resetBtn.style.display = 'none'
+        startBtn.style.display = 'block'
+
+
+
+
+
+        screens = document.querySelectorAll('.screen') // нужно переопределить коллекцию
+        for (let i = 1; i < screens.length; i++) {
+            console.log('удален 1 элемент');
+            screens[i].remove()
+        }
+
+
+
+        console.log('Все очищено');
+        console.log(appData.screens);
+    },
+
     addRollback: function () {
         console.log(appData.rollback, ' // по умолчанию 10');
 
-        const rangeValRes = function (e) {
+        const rangeValRes = (e) => {
             rangeValue.innerHTML = e.target.value + '%'
-            appData.rollback = +e.target.value
-            console.log(appData.rollback);
+            this.rollback = +e.target.value
+            console.log(this.rollback);
         }
 
         inputRange.addEventListener('input', rangeValRes)
@@ -107,10 +148,10 @@ const appData = {
     },
 
     addRollbackAfter: function () {
-        const rangeValResAfter = function (e) {
-            appData.rollback = +e.target.value
-            appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100))
-            totalInputWithRollback.value = appData.servicePercentPrice
+        const rangeValResAfter = (e) => {
+            this.rollback = +e.target.value
+            this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
+            totalInputWithRollback.value = this.servicePercentPrice
         }
         inputRange.addEventListener('input', rangeValResAfter)
         inputRange.addEventListener('change', rangeValResAfter)
@@ -118,7 +159,7 @@ const appData = {
     addScreens: function () {
         screens = document.querySelectorAll('.screen') // нужно переопределить коллекцию
 
-        screens.forEach(function (item, index) { // перебираем переменную screens
+        screens.forEach((item, index) => { // перебираем переменную screens
             const select = item.querySelector('select') // вытянули каждый отдельный пункт селекта
             const input = item.querySelector('input') // вытянули каждый отдельный инпут
             const selectName = select.options[select.selectedIndex].textContent // получили текст селекта
@@ -126,7 +167,7 @@ const appData = {
             if (input.value !== '' && select.value !== '') {
                 const price = +select.value * +input.value
                 const count = +input.value
-                appData.screens.push({
+                this.screens.push({
                     id: index,
                     name: selectName,
                     price: price,
@@ -135,7 +176,7 @@ const appData = {
                 console.log(appData.screens);
 
             } else {
-                appData.screens.splice(0);
+                this.screens.splice(0);
                 document.querySelectorAll('input[type=text]').value = ''
                 console.log('Не заполнены обязательные поля')
             }
@@ -144,7 +185,7 @@ const appData = {
 
     },
     addServices: function () {
-        otherItemsPercent.forEach(function (item, index) {
+        otherItemsPercent.forEach((item, index) => {
             const check = item.querySelector('input[type=checkbox]')
             const label = item.querySelector('label')
             const input = item.querySelector('input[type=text]')
@@ -152,12 +193,12 @@ const appData = {
 
 
             if (check.checked) {
-                appData.servicesPercent[label.textContent] = +input.value
+                this.servicesPercent[label.textContent] = +input.value
             }
         })
 
 
-        otherItemsNumber.forEach(function (item, index) {
+        otherItemsNumber.forEach((item, index) => {
             const check = item.querySelector('input[type=checkbox]')
             const label = item.querySelector('label')
             const input = item.querySelector('input[type=text]')
@@ -166,21 +207,21 @@ const appData = {
 
 
             if (check.checked) {
-                appData.servicesNumber[label.textContent] = +input.value
+                this.servicesNumber[label.textContent] = +input.value
             }
         })
     },
     showResult: function () {
         console.log('res');
-        totalInputCostScreen.value = appData.screenPrice
-        totalCountOther.value = appData.servicePricesNumber + appData.servicePricesPercent
-        totalInput.value = appData.fullPrice
-        totalInputWithRollback.value = appData.servicePercentPrice
-        totalInputValue.value = appData.count
+        totalInputCostScreen.value = this.screenPrice
+        totalCountOther.value = this.servicePricesNumber + this.servicePricesPercent
+        totalInput.value = this.fullPrice
+        totalInputWithRollback.value = this.servicePercentPrice
+        totalInputValue.value = this.count
     },
     addPrices: function () {
 
-        const sumScreenPrice = appData.screens.reduce(function (accumulator, screen) {
+        const sumScreenPrice = this.screens.reduce((accumulator, screen) => {
             return accumulator + +screen.price
         }, 0)
 
@@ -188,42 +229,43 @@ const appData = {
         console.log(sumScreenPrice, ' Получаю сумму экранов');
 
 
-        const sumCount = appData.screens.reduce(function (prev, item) {
+        const sumCount = this.screens.reduce((prev, item) => {
             return prev + +item.count
         }, 0)
-        appData.count = sumCount
+
+        this.count = sumCount
         console.log(sumCount, ' Получаю сумму кол-ва экранов');
 
 
 
 
-        for (let item in appData.servicesNumber) {
-            appData.servicePricesNumber += appData.servicesNumber[item]
+        for (let item in this.servicesNumber) {
+            appData.servicePricesNumber += this.servicesNumber[item]
         }
 
         for (let item in appData.servicesPercent) {
-            appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[item] / 100)
+            this.servicePricesPercent += this.screenPrice * (this.servicesPercent[item] / 100)
         }
 
 
-        appData.fullPrice = +appData.screenPrice + appData.servicePricesNumber + appData.servicePricesPercent
+        this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent
 
-        appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100))
+        this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
     },
 
     logger: function () {
 
-        console.log('Сумма услуг ', appData.allServicePrices)
-        console.log('Общая сумма услуг + стоимость экранов ', appData.fullPrice);
-        console.log(appData.servicePercentPrice, 'Общая сумма после вычета % ')
+        console.log('Сумма услуг ', this.allServicePrices)
+        console.log('Общая сумма услуг + стоимость экранов ', this.fullPrice);
+        console.log(this.servicePercentPrice, 'Общая сумма после вычета % ')
 
 
-        console.log(appData.screens, ' Отобразили массив с данными');
+        console.log(this.screens, ' Отобразили массив с данными');
 
 
 
 
-        for (let item in appData) {
+        for (let item in this) {
             console.log('——————————————————')
             console.log(item);
         }
