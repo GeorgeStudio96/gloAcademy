@@ -22,6 +22,8 @@ const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
 
 let screens = document.querySelectorAll('.screen') // nodelist
 
+const checkCms = document.querySelector('#cms-open')
+const cmsHidden = document.querySelector('.main-controls__item.hidden-cms-variants')
 
 
 
@@ -45,6 +47,7 @@ const appData = {
         this.addRollback()
         this.addRollbackAfter()
         resetBtn.addEventListener('click', this.reset)
+        checkCms.addEventListener('click', this.openCms)
     },
     addTitle: function () {
         document.title = title.textContent
@@ -70,6 +73,9 @@ const appData = {
         appData.screens.splice(0)
         appData.disableItem()
 
+    },
+    openCms: function () {
+        console.log('FUCK');
     },
     disableItem: function () {
         let allSelect = document.querySelectorAll('.main-controls__select > select')
