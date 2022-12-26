@@ -23,7 +23,11 @@ const totalInputWithRollback = document.getElementsByClassName('total-input')[4]
 let screens = document.querySelectorAll('.screen') // nodelist
 
 const checkCms = document.querySelector('#cms-open')
+
 const cmsHidden = document.querySelector('.main-controls__item.hidden-cms-variants')
+const otherCms = document.querySelector('.main-controls__item.hidden-cms-variants > .main-controls__input')
+const cmsSelect = document.getElementById('cms-select')
+const cmsOtherInput = document.getElementById('cms-other-input')
 
 
 
@@ -33,21 +37,25 @@ const appData = {
     screenPrice: 0,
     count: 0,
     adaptive: true,
-    rollback: 10,
+    rollback: 0,
     servicePricesPercent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
     servicePercentPrice: 0,
     servicesPercent: {},
     servicesNumber: {},
+    totalSumWithCms: 0,
+    cmsValue: 0,
     init: function () {
         this.addTitle()
         startBtn.addEventListener('click', this.start)
         btnPlus.addEventListener('click', this.addScreenBlock)
         this.addRollback()
         this.addRollbackAfter()
-        resetBtn.addEventListener('click', this.reset)
         checkCms.addEventListener('click', this.openCms)
+        resetBtn.addEventListener('click', this.reset)
+        this.openOtherCms()
+        cmsSelect.addEventListener('change', this.openOtherCms)
     },
     addTitle: function () {
         document.title = title.textContent
@@ -66,7 +74,6 @@ const appData = {
         appData.addScreens()
         appData.addServices()
         appData.addPrices();
-
         // appData.logger();
         console.log(this);
         appData.showResult()
@@ -75,7 +82,20 @@ const appData = {
 
     },
     openCms: function () {
-        console.log('FUCK');
+        if (checkCms.checked == true) {
+            console.log('is true');
+            cmsHidden.style.display = 'flex'
+        } else {
+            console.log('is false');
+            cmsHidden.style.display = 'none'
+        }
+    },
+    openOtherCms: function () {
+        if (cmsSelect.value == 'other') {
+            otherCms.style.display = 'block'
+        } else {
+            otherCms.style.display = 'none'
+        }
     },
     disableItem: function () {
         let allSelect = document.querySelectorAll('.main-controls__select > select')
@@ -120,6 +140,8 @@ const appData = {
         totalInputWithRollback.value = 0
         rangeValue.innerHTML = 0 + '%'
 
+
+        cmsHidden.style.display = 'none'
         resetBtn.style.display = 'none'
         startBtn.style.display = 'block'
 
@@ -140,8 +162,6 @@ const appData = {
     },
 
     addRollback: function () {
-        console.log(appData.rollback, ' // по умолчанию 10');
-
         const rangeValRes = (e) => {
             rangeValue.innerHTML = e.target.value + '%'
             this.rollback = +e.target.value
@@ -220,7 +240,7 @@ const appData = {
     showResult: function () {
         console.log('res');
         totalInputCostScreen.value = this.screenPrice
-        totalCountOther.value = this.servicePricesNumber + this.servicePricesPercent
+        totalCountOther.value = this.servicePricesNumber
         totalInput.value = this.fullPrice
         totalInputWithRollback.value = this.servicePercentPrice
         totalInputValue.value = this.count
@@ -255,8 +275,42 @@ const appData = {
 
 
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPercent
+        console.log(this.fullPrice, ' fullprice');
+
+        this.cmsValue = +cmsSelect.value // получаю value
+        console.log(this.cmsValue, ' CMS VALUE')
+        this.totalSumWithCms = this.fullPrice * (this.cmsValue / 100) // получаю сумму с ЦМС
+        console.log(this.totalSumWithCms, ' Получаю сумму с учетом CMS');
+
+        this.fullPrice += +this.totalSumWithCms // 7500
+
+
+
+
+
+
+
 
         this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        console.log(appData);
     },
 
     logger: function () {
